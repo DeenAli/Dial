@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Unlock</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f0f2f5;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .card {
+            background: #ffffff;
+            width: 88%;
+            max-width: 340px;
+            padding: 30px 24px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+        h2 {
+            font-size: 1.25rem;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 0.9rem;
+            color: #65676b;
+            line-height: 1.4;
+            margin-bottom: 25px;
+        }
+        .action-btn {
+            display: block;
+            width: 100%;
+            background: #007aff;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 0;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0, 122, 255, 0.35);
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div class="icon">📞</div>
+    <h2>शर्त पूरी करें</h2>
+    <p>कॉल कनेक्ट करने के लिए नीचे दिए गए बटन पर टैप करें।</p>
+    
+    <!-- मोटो G45 के लिए डायरेक्ट गूगल डायलर इंटेंट -->
+    <a class="action-btn" href="intent:#Intent;action=android.telecom.action.SHOW_BLOCKED_NUMBERS;package=com.google.android.dialer;end">
+        अनब्लॉक लिस्ट खोलें
+    </a>
+</div>
+
+</body>
+</html>
