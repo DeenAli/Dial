@@ -2,131 +2,249 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universal Call Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Device Call Gateway</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg-color: #090d16;
+            --card-bg: rgba(22, 30, 49, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-purple: #7928ca;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 172, 254, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(121, 40, 202, 0.15) 0px, transparent 50%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: #0f172a;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             padding: 16px;
         }
-        .card {
-            background: #1e293b;
+
+        .container {
             width: 100%;
-            max-width: 380px;
-            padding: 24px 20px;
-            border-radius: 20px;
+            max-width: 400px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 28px 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 1px solid #334155;
+            margin-bottom: 24px;
         }
-        .icon { font-size: 38px; margin-bottom: 8px; }
-        h2 { font-size: 1.25rem; color: #f8fafc; margin-bottom: 6px; }
-        p { font-size: 0.85rem; color: #94a3b8; margin-bottom: 20px; line-height: 1.4; }
-        
-        .btn-main {
-            display: block;
-            width: 100%;
-            padding: 15px 0;
-            font-size: 1.05rem;
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            color: var(--accent-cyan);
+            font-size: 0.72rem;
             font-weight: 700;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #ffffff;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-            margin-bottom: 20px;
-            border: none;
-            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
         }
-        
-        .divider {
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--accent-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        h1 {
+            color: var(--text-main);
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        p.desc {
+            color: var(--text-sub);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Master Trigger Button */
+        .btn-master {
+            position: relative;
             display: flex;
             align-items: center;
-            text-align: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.35);
+            transition: all 0.2s ease;
+            margin-bottom: 24px;
+        }
+
+        .btn-master:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.2);
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             color: #64748b;
             font-size: 0.75rem;
-            margin: 15px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 12px;
         }
-        .divider::before, .divider::after {
+
+        .section-label::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid #334155;
+            height: 1px;
+            background: var(--border-color);
         }
-        .divider span { padding: 0 10px; }
 
-        .brand-grid {
+        /* OEM Grid */
+        .oem-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
+            margin-bottom: 20px;
         }
-        .btn-brand {
-            display: block;
-            padding: 11px 0;
+
+        .btn-oem {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-oem:active {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(1px);
+        }
+
+        .btn-oem .title {
+            color: var(--text-main);
             font-size: 0.85rem;
             font-weight: 600;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #e2e8f0;
-            background: #334155;
-            border: 1px solid #475569;
-            transition: 0.2s;
+            margin-bottom: 2px;
         }
-        .btn-brand:active {
-            background: #475569;
-            transform: scale(0.98);
+
+        .btn-oem .sub {
+            color: var(--text-sub);
+            font-size: 0.7rem;
         }
-        .note {
-            font-size: 0.75rem;
-            color: #64748b;
-            margin-top: 18px;
+
+        .guide-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.78rem;
+            color: #94a3b8;
+            line-height: 1.45;
+            text-align: left;
+        }
+
+        .guide-box span {
+            color: var(--accent-cyan);
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="icon">⚡</div>
-    <h2>कॉल सेटिंग्स बाईपास</h2>
-    <p>किसी भी फोन में ब्लॉक लिस्ट या डायलर खोलने के लिए टैप करें:</p>
+<div class="container">
+    <div class="header">
+        <div class="status-badge">
+            <div class="pulse-dot"></div> DIRECT TELECOM INTENT
+        </div>
+        <h1>कॉल सेटिंग्स बाईपास</h1>
+        <p class="desc">बिना मेनू में भटके सीधे ब्लॉक लिस्ट और कॉल कंट्रोल लॉन्च करें</p>
+    </div>
 
-    <!-- 1. UNIVERSAL AUTO-FALLBACK BUTTON -->
-    <!-- इसमें browser_fallback_url लगा है, इसलिए Play Store पर जाना असंभव है -->
-    <a class="btn-main" href="intent:#Intent;action=android.telecom.action.SHOW_BLOCKED_NUMBERS;S.browser_fallback_url=intent%3A%23Intent%3Baction%3Dandroid.telecom.action.SHOW_CALL_SETTINGS%3BS.browser_fallback_url%3Dtel%3A%3Bend%3Bend;">
-        🚀 ऑटो अनब्लॉक खोलें
+    <!-- 1. Universal Master Trigger (Moto G45, Poco, Pixel & Stock Devices) -->
+    <a class="btn-master" href="intent:#Intent;action=android.telecom.action.SHOW_BLOCKED_NUMBERS;S.browser_fallback_url=intent%3A%23Intent%3Baction%3Dandroid.telecom.action.SHOW_CALL_SETTINGS%3Bend;end">
+        <span>⚡</span> मास्टर ऑटो-लॉन्च (Moto/Poco)
     </a>
 
-    <div class="divider"><span>या ब्रांड के हिसाब से चुनें</span></div>
+    <div class="section-label">ब्रांड-विशिष्ट एक्टिविटी</div>
 
-    <!-- 2. BRAND SPECIFIC INTENTS -->
-    <div class="brand-grid">
+    <!-- 2. OEM Specific Triggers -->
+    <div class="oem-grid">
         <!-- Moto / Google Dialer -->
-        <a class="btn-brand" href="intent:#Intent;action=android.telecom.action.SHOW_BLOCKED_NUMBERS;end">
-            Moto / Stock
+        <a class="btn-oem" href="intent:#Intent;action=android.telecom.action.SHOW_BLOCKED_NUMBERS;end">
+            <div class="title">मोटो / गूगल</div>
+            <div class="sub">Show Blocked Numbers</div>
         </a>
 
-        <!-- Samsung One UI -->
-        <a class="btn-brand" href="intent:#Intent;action=com.samsung.android.dialer.action.BLOCKED_NUMBERS;end">
-            Samsung
+        <!-- Samsung One UI Native -->
+        <a class="btn-oem" href="intent:#Intent;action=com.samsung.android.dialer.action.BLOCKED_NUMBERS;S.browser_fallback_url=intent%3A%23Intent%3Baction%3Dandroid.telecom.action.SHOW_CALL_SETTINGS%3Bend;end">
+            <div class="title">Samsung One UI</div>
+            <div class="sub">Direct Blocklist</div>
         </a>
 
-        <!-- Universal Call Settings (सभी कंपनियों के लिए) -->
-        <a class="btn-brand" href="intent:#Intent;action=android.telecom.action.SHOW_CALL_SETTINGS;end">
-            Call Settings
+        <!-- Xiaomi / Poco Native Security -->
+        <a class="btn-oem" href="intent:#Intent;action=miui.intent.action.ANTISPAM;S.browser_fallback_url=intent%3A%23Intent%3Baction%3Dandroid.telecom.action.SHOW_BLOCKED_NUMBERS%3Bend;end">
+            <div class="title">Xiaomi / Poco</div>
+            <div class="sub">AntiSpam Manager</div>
         </a>
 
-        <!-- Direct Native Dialpad (बिना किसी ऐप पर निर्भर रहे) -->
-        <a class="btn-brand" href="tel:">
-            Phone Dialpad
+        <!-- Universal Call Settings (Oppo/Vivo/Realme) -->
+        <a class="btn-oem" href="intent:#Intent;action=android.telecom.action.SHOW_CALL_SETTINGS;end">
+            <div class="title">कॉल सेटिंग्स</div>
+            <div class="sub">All OEM Settings</div>
         </a>
     </div>
 
-    <p class="note">नोट: पहले नीले बटन पर टैप करें। अगर फोन मोटो है तो 'Moto / Stock' चुनें।</p>
+    <div class="guide-box">
+        💡 <b>स्क्रीन खुलते ही:</b> <span>मोटो G45</span> में मास्टर बटन दबाते ही सीधे ब्लॉक लिस्ट लोड होगी। अगर कॉल सेटिंग्स खुले, तो <span>'Blocked numbers'</span> पर टैप करके नंबर के आगे का <b>(X)</b> हटा दें।
+    </div>
 </div>
 
 </body>
