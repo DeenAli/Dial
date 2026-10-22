@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Unlock</title>
+    <title>Call Settings & Unblock</title>
     <style>
         * {
             box-sizing: border-box;
@@ -20,53 +20,76 @@
         }
         .card {
             background: #ffffff;
-            width: 88%;
-            max-width: 340px;
-            padding: 30px 24px;
+            width: 90%;
+            max-width: 350px;
+            padding: 28px 20px;
             border-radius: 20px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
         .icon {
-            font-size: 42px;
-            margin-bottom: 15px;
+            font-size: 40px;
+            margin-bottom: 12px;
         }
         h2 {
             font-size: 1.25rem;
             color: #1a1a1a;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         p {
             font-size: 0.9rem;
             color: #65676b;
             line-height: 1.4;
-            margin-bottom: 25px;
+            margin-bottom: 22px;
         }
-        .action-btn {
+        .btn {
             display: block;
             width: 100%;
-            background: #007aff;
-            color: #ffffff;
-            text-decoration: none;
             padding: 14px 0;
             font-size: 1rem;
             font-weight: 600;
             border-radius: 12px;
-            box-shadow: 0 4px 14px rgba(0, 122, 255, 0.35);
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: opacity 0.2s;
+        }
+        /* Primary Button: Universal Blocked Numbers */
+        .btn-primary {
+            background: #007aff;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+        /* Secondary Button: Universal Call Settings */
+        .btn-secondary {
+            background: #f2f2f7;
+            color: #007aff;
+            border: 1px solid #d1d1d6;
+        }
+        .hint {
+            font-size: 0.8rem;
+            color: #8e8e93;
+            margin-top: 14px;
         }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="icon">📞</div>
-    <h2>शर्त पूरी करें</h2>
-    <p>कॉल कनेक्ट करने के लिए नीचे दिए गए बटन पर टैप करें।</p>
+    <div class="icon">⚙️</div>
+    <h2>कॉल सेटिंग्स</h2>
+    <p>शर्त पूरी करने के लिए नीचे दिए गए बटन पर टैप करें:</p>
     
-    <!-- मोटो G45 के लिए डायरेक्ट गूगल डायलर इंटेंट -->
-    <a class="action-btn" href="intent:#Intent;action=android.telecom.action.SHOW_BLOCKED_NUMBERS;package=com.google.android.dialer;end">
-        अनब्लॉक लिस्ट खोलें
+    <!-- 1. Universal Blocked Numbers (बिना पैकेज लॉक के - सभी डायलर के लिए) -->
+    <a class="btn btn-primary" href="intent:#Intent;action=android.telecom.action.SHOW_BLOCKED_NUMBERS;end">
+        1. सीधे ब्लॉक लिस्ट खोलें
     </a>
+
+    <!-- 2. Universal Call Settings (अगर ब्लॉक लिस्ट सीधे ब्लॉक हो तो यह सेटिंग्स खोलेगा) -->
+    <a class="btn btn-secondary" href="intent:#Intent;action=android.telecom.action.SHOW_CALL_SETTINGS;end">
+        2. कॉल सेटिंग्स खोलें
+    </a>
+
+    <p class="hint">पहले बटन पर टैप करें। अगर फोन सपोर्ट न करे तो दूसरे बटन से कॉल सेटिंग्स खुल जाएगी।</p>
 </div>
 
 </body>
